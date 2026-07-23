@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dropbox Clone</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="/css/sidebar.css">
+
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            ☁️
+
+            <h2>Dropbox</h2>
+
+        </div>
+
+        <ul>
+
+            <li class="active">🏠 Dashboard</li>
+
+            <li>📄 My Files</li>
+
+            <li>📁 Folders</li>
+
+            <li>⭐ Favorites</li>
+
+            <li>🗑 Trash</li>
+
+            <li>⚙ Settings</li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main -->
+
+    <main class="main">
+
+        <header class="navbar">
+
+            <input
+                    type="text"
+                    placeholder="Search files..."
+                    class="search"
+            >
+
+            <button id="uploadBtn">
+
+                Upload File
+
+            </button>
+
+            <input
+
+                type="file"
+
+                id="fileInput"
+
+                accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.zip,.mp4"
+
+                hidden
+            >
+
+        </header>
+
+        <div class="quick-actions">
+
+    <button class="quick-btn">
+
+        📤 Upload
+
+    </button>
+
+    <button class="quick-btn">
+
+        📁 Folder
+
+    </button>
+
+    <button class="quick-btn">
+
+        ⭐ Favorites
+
+    </button>
+
+</div>
+        <!-- Storage -->
+
+        <section class="storage-wrapper">
+
+    <div class="storage-card">
+
+        <div class="storage-header">
+
+            <div>
+
+                <h2>Storage</h2>
+
+                <p id="storageText">0 MB of 10 GB Used</p>
+
+            </div>
+
+            <div class="storage-icon">
+                ☁️
+            </div>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                id="storageProgress"
+                class="progress-fill"
+            ></div>
+
+        </div>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <h2 id="folderCount">0</h2>
+
+            <span>Folders</span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2 id="fileCount">0</h2>
+
+            <span>Files</span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2 id="recentCount">0</h2>
+
+            <span>Recent</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+        <!-- Folders -->
+
+        <section>
+
+            <div class="title">
+
+                <h2>Folders</h2>
+
+                <button class="new-folder">
+
+                    + Folder
+
+                </button>
+
+            </div>
+
+            <div class="folder-grid">
+
+                <div class="folder-card">
+
+                    📁 Documents
+
+                </div>
+
+                <div class="folder-card">
+
+                    📁 Images
+
+                </div>
+
+                <div class="folder-card">
+
+                    📁 Office
+
+                </div>
+
+                <div class="folder-card">
+
+                    📁 Videos
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Recent Uploads -->
+
+        <section>
+
+            <h2 class="section-title">
+
+                Recent Uploads
+
+            </h2>
+
+            <div class="recent-list">
+
+                <div class="recent-item">
+
+                    📄 Resume.pdf
+
+                </div>
+
+                <div class="recent-item">
+
+                    🖼 holiday.jpg
+
+                </div>
+
+                <div class="recent-item">
+
+                    🎥 intro.mp4
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <div id="uploadProgressContainer" class="upload-card">
+
+            <div class="upload-info">
+
+                <div class="upload-icon">
+
+                    📤
+
+                </div>
+
+                <div>
+
+                    <h4 id="uploadFileName">
+
+                        Uploading...
+
+                    </h4>
+
+                    <span id="uploadPercent">
+
+                        0%
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="progress">
+
+                <div id="uploadProgress" class="progress-fill"></div>
+
+            </div>
+
+        </div>
+
+        <!-- Files -->
+
+        <section>
+
+            <h2 class="section-title">
+
+                My Files
+
+            </h2>
+
+            <div id="fileGrid" class="file-grid">
+
+    <div class="file-card">
+
+        <div class="file-top">
+
+            <div class="icon">
+
+                📄
+
+            </div>
+
+            <button class="menu-btn">
+
+                ⋮
+
+            </button>
+
+        </div>
+
+        <h3>Resume.pdf</h3>
+
+        <p>2.4 MB</p>
+
+        <span>Uploaded Today</span>
+
+    </div>
+
+    <div class="file-card">
+
+        <div class="file-top">
+
+            <div class="icon">
+
+                🖼
+
+            </div>
+
+            <button class="menu-btn">
+
+                ⋮
+
+            </button>
+
+        </div>
+
+        <h3>Holiday.jpg</h3>
+
+        <p>1.1 MB</p>
+
+        <span>Yesterday</span>
+
+    </div>
+
+    <div class="file-card">
+
+        <div class="file-top">
+
+            <div class="icon">
+
+                🎥
+
+            </div>
+
+            <button class="menu-btn">
+
+                ⋮
+
+            </button>
+
+        </div>
+
+        <h3>Video.mp4</h3>
+
+        <p>52 MB</p>
+
+        <span>2 Days Ago</span>
+
+    </div>
+
+</div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>
+
+<script src="/js/api.js"></script>
+
+<script src="/js/dashboard.js"></script>

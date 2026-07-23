@@ -4,6 +4,8 @@ const Fastify = require("fastify");
 
 const path = require("path");
 
+const fs = require("fs");
+
 const fastify = Fastify({
     logger: true
 });
@@ -11,12 +13,20 @@ const fastify = Fastify({
 fastify.register(require("./config/db"));
 
 fastify.register(require("@fastify/static"), {
-    root: path.join(__dirname, "public")
+    root: path.join(__dirname, "public"),
+    prefix: "/"
+});
+
+fastify.get("/", async (req, reply) => {
+
+    return reply.type("text/html").send(
+        fs.readFileSync(path.join(__dirname, "views", "index.html"))
+    );
+
 });
 
 fastify.register(require("@fastify/multipart"), {
     limits: {
-
         fileSize: 1024 * 1024 * 100
     }
 });

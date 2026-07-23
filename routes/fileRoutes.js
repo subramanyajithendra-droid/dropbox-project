@@ -1,9 +1,15 @@
 const controller = require("../Controllers/fileController");
 
-async function routes(fastify) {
+async function routes(fastify){
 
-    fastify.post("/upload", controller.uploadFile);
+    fastify.get("/getFiles",controller.getFiles);
+
+    fastify.post("/upload",controller.uploadFile);
+
+    fastify.delete("/:id",controller.deleteFile);
+
+    fastify.put("/:id",controller.renameFile);
 
 }
 
-module.exports = routes;
+module.exports=routes;
