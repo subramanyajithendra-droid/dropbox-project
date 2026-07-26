@@ -1,6 +1,11 @@
 const {
-    PutObjectCommand
+    S3Client,
+    PutObjectCommand,
+    DeleteObjectCommand,
+    GetObjectCommand
 } = require("@aws-sdk/client-s3");
+
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 // const { v4: uuid } = require("uuid");
 const { randomUUID } = require("crypto");
@@ -38,5 +43,18 @@ exports.uploadToS3 = async (file) => {
         url: `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${uniqueName}`
 
     };
+
+};
+
+exports.getSignedUrl = async (key) => {
+
+    const command = new GetObjectCommand({
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: key
+    });
+
+    return await getSignedUrl(s3Client, command, {
+        expiresIn: 60 * 5 // 5 minutes
+    });
 
 };

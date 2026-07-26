@@ -10,6 +10,10 @@ async function routes(fastify){
 
     fastify.put("/:id",controller.renameFile);
 
+    fastify.get("/preview/:id",controller.previewFile);
+
+    fastify.get("/download/:id",controller.downloadFile);
+
 }
 
 module.exports=routes;

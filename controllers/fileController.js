@@ -140,7 +140,70 @@ exports.renameFile=async(req,reply)=>{
     }
 }
 
+exports.previewFile = async (req, reply) => {
 
+    try {
+
+        const file = await File.findById(req.params.id);
+
+        if (!file) {
+            return reply.code(404).send({
+                success: false,
+                message: "File not found"
+            });
+        }
+
+        const signedUrl = await s3Service.getSignedUrl(file.s3Key);
+
+        reply.send({
+            success: true,
+            url: signedUrl,
+            mimeType: file.mimeType,
+            fileName: file.originalName
+        });
+
+    } catch (err) {
+
+        reply.code(500).send({
+            success: false,
+            message: err.message
+        });
+
+    }
+
+};
+
+
+exports.downloadFile = async (req, reply) => {
+
+    try {
+
+        const file = await File.findById(req.params.id);
+
+        if (!file) {
+            return reply.code(404).send({
+                success: false,
+                message: "File not found"
+            });
+        }
+
+        const signedUrl = await s3Service.getSignedUrl(file.s3Key);
+
+        reply.send({
+            success: true,
+            url: signedUrl
+        });
+
+    } catch (err) {
+
+        reply.code(500).send({
+            success: false,
+            message: err.message
+        });
+
+    }
+
+};
 
 
 // GET /api/files

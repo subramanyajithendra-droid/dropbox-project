@@ -17,10 +17,58 @@ fastify.register(require("@fastify/static"), {
     prefix: "/"
 });
 
+function renderPage(page) {
+
+    return fs.readFileSync(
+        path.join(__dirname, "views", page)
+    );
+
+}
+
 fastify.get("/", async (req, reply) => {
 
-    return reply.type("text/html").send(
-        fs.readFileSync(path.join(__dirname, "views", "index.html"))
+    reply.type("text/html").send(
+        renderPage("index.html")
+    );
+
+});
+
+fastify.get("/my-files", async (req, reply) => {
+
+    reply.type("text/html").send(
+        renderPage("my-files.html")
+    );
+
+});
+
+fastify.get("/folders", async (req, reply) => {
+
+    reply.type("text/html").send(
+        renderPage("folders.html")
+    );
+
+});
+
+fastify.get("/favorites", async (req, reply) => {
+
+    reply.type("text/html").send(
+        renderPage("favorites.html")
+    );
+
+});
+
+fastify.get("/trash", async (req, reply) => {
+
+    reply.type("text/html").send(
+        renderPage("trash.html")
+    );
+
+});
+
+fastify.get("/settings", async (req, reply) => {
+
+    reply.type("text/html").send(
+        renderPage("settings.html")
     );
 
 });

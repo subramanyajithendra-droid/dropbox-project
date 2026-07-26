@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Files</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+    <link rel="stylesheet" href="/css/my-files.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            ☁️
+
+            <h2>Dropbox</h2>
+
+        </div>
+
+        <ul>
+
+            <li>
+
+                <a href="/">📊 Dashboard</a>
+
+            </li>
+
+            <li class="active">
+
+                <a href="/my-files.html">📄 My Files</a>
+
+            </li>
+
+            <li>
+
+                <a href="#">📂 Folders</a>
+
+            </li>
+
+            <li>
+
+                <a href="#">⭐ Favorites</a>
+
+            </li>
+
+            <li>
+
+                <a href="#">🗑 Trash</a>
+
+            </li>
+
+            <li>
+
+                <a href="#">⚙ Settings</a>
+
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- Main -->
+
+    <main class="main">
+
+        <!-- Header -->
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>My Files</h1>
+
+                <p>
+
+                    Browse, preview and manage your uploaded files
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Toolbar -->
+
+        <div class="toolbar">
+
+            <input
+                    id="searchInput"
+                    class="search-box"
+                    type="text"
+                    placeholder="Search files..."
+            >
+
+            <select id="sortSelect">
+
+                <option value="newest">
+
+                    Newest
+
+                </option>
+
+                <option value="oldest">
+
+                    Oldest
+
+                </option>
+
+                <option value="name">
+
+                    Name (A-Z)
+
+                </option>
+
+                <option value="size">
+
+                    Largest Size
+
+                </option>
+
+            </select>
+
+        </div>
+
+        <!-- Statistics -->
+
+        <div class="summary">
+
+            <div class="summary-card">
+
+                <h2 id="totalFiles">
+
+                    0
+
+                </h2>
+
+                <span>
+
+                    Files
+
+                </span>
+
+            </div>
+
+            <div class="summary-card">
+
+                <h2 id="totalStorage">
+
+                    0 MB
+
+                </h2>
+
+                <span>
+
+                    Storage Used
+
+                </span>
+
+            </div>
+
+            <div class="summary-card">
+
+                <h2 id="todayUploads">
+
+                    0
+
+                </h2>
+
+                <span>
+
+                    Uploaded Today
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- Files -->
+
+        <div
+                id="fileGrid"
+                class="file-grid"
+        >
+
+        </div>
+
+    </main>
+
+</div>
+
+<!-- Preview Modal -->
+
+<div
+        id="previewModal"
+        class="modal"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2 id="previewTitle">
+
+                File Preview
+
+            </h2>
+
+            <button id="closeModal">
+
+                ✖
+
+            </button>
+
+        </div>
+
+        <div
+                id="previewBody"
+                class="preview-body"
+        >
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button id="downloadBtn">
+
+                ⬇ Download
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/js/api.js"></script>
+
+<script src="/js/my-files.js"></script>
+
+</body>
+
+</html>
