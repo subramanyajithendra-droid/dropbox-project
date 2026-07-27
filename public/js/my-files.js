@@ -1,18 +1,55 @@
 let allFiles = [];
 
+let selectedFileId = null;
+
 window.onload = () => {
 
     loadMyFiles();
 
-    document
-        .getElementById("searchInput")
-        .addEventListener("input", searchFiles);
 
-    document
-        .getElementById("sortSelect")
-        .addEventListener("change", sortFiles);
+    const searchInput = document.getElementById("searchInput");
 
-    document.getElementById("closeModal").onclick = closePreview;
+    if(searchInput){
+
+        searchInput.addEventListener(
+            "input",
+            searchFiles
+        );
+
+    }
+
+
+    const sortSelect = document.getElementById("sortSelect");
+
+    if(sortSelect){
+
+        sortSelect.addEventListener(
+            "change",
+            sortFiles
+        );
+
+    }
+
+
+    const closeModal =
+        document.getElementById("closeModal");
+
+    if(closeModal){
+
+        closeModal.onclick = closePreview;
+
+    }
+
+
+    const menuOverlay =
+        document.getElementById("menuOverlay");
+
+    if(menuOverlay){
+
+        menuOverlay.onclick = closeAllMenus;
+
+    }
+
 };
 
 window.onclick=function(e){
@@ -76,6 +113,14 @@ function renderFiles(files){
 
         <div class="file-card">
 
+            <!-- Favourite Badge -->
+
+            ${file.isFavorite ? `
+                <div class="favorite-badge">
+                    ⭐
+                </div>
+            ` : ""}
+
             <div class="file-top">
 
                 <div class="icon">
@@ -84,15 +129,50 @@ function renderFiles(files){
 
                 </div>
 
-                <button class="menu-btn">
+                <div class="menu-container">
+
+
+                    <button class="menu-btn" onclick="toggleMenu(event,'${file._id}')">
 
                     ⋮
 
-                </button>
+                    </button>
+
+                    <div class="dropdown-menu" id="menu-${file._id}">
+
+                        <button onclick="renamePrompt('${file._id}')">
+
+                            ✏ Rename
+
+                        </button>
+
+                        <button onclick="toggleFavorite('${file._id}')">
+
+                            ${file.isFavorite ? 
+                            "⭐ Remove Favorite"
+                            :
+                            "⭐ Add Favorite"}
+
+                        </button>
+
+                        <button class="danger" onclick="moveToTrash('${file._id}')">
+
+                            🗑 Move to Trash
+
+                        </button>
+
+                    </div>
+
+
+                </div>
 
             </div>
 
-            <h3>${getFileName(file.originalName)}</h3>
+            <h3>
+
+                ${getFileName(file.originalName)}
+
+            </h3>
 
             <div class="file-type">
 
@@ -100,17 +180,29 @@ function renderFiles(files){
 
             </div>
 
-            <p>${formatSize(file.size)}</p>
+            <p>
 
-            <span>${formatDate(file.createdAt)}</span>
+                ${formatSize(file.size)}
+
+            </p>
+
+            <span>
+
+                ${formatDate(file.createdAt)}
+
+            </span>
 
             <div class="actions">
 
-                <button onclick="previewFile('${file._id}')">
+                <button
+                    onclick="previewFile('${file._id}')">
+
                     👁 Open
+
                 </button>
 
-                <button onclick="event.stopPropagation(); downloadFile('${file._id}')">
+                <button
+                    onclick="downloadFile('${file._id}')">
 
                     ⬇ Download
 
@@ -321,6 +413,148 @@ async function downloadFile(id) {
     document.body.removeChild(a);
 }
 
+function toggleMenu(event,id){
+
+    event.stopPropagation();
+
+    closeAllMenus();
+
+    const menu=document.getElementById(
+        `menu-${id}`
+    );
+
+    menu.classList.add("show");
+
+    document.getElementById("menuOverlay").classList.add("active");
+}
+
+function closeAllMenus(){
+
+    document.querySelectorAll(".dropdown-menu").forEach(menu=>{
+
+        menu.classList.remove("show");
+
+    });
+
+    const overlay=document.getElementById(
+        "menuOverlay"
+    );
+
+    if(overlay){
+
+        overlay.classList.remove("active");
+
+    }
+}
+
+
+function renamePrompt(id){
+
+    selectedFileId=id;
+
+    const file=allFiles.find(
+        f=>f._id===id
+    );
+
+    document.getElementById("renameInput").value=file.originalName;
+
+    document.getElementById("renameModal").classList.add("active");
+
+    closeAllMenus();
+
+}
+
+function closeRenameModal(){
+
+    document.getElementById("renameModal").classList.remove("active");
+
+    selectedFileId=null;
+
+}
+
+async function renameFile(){
+
+    const name= document.getElementById("renameInput").value.trim();
+
+    if(!name){
+        alert("Enter file name");
+        return;
+    }
+
+    const res=await fetch(`/api/files/${selectedFileId}`,
+        {
+            method:"PUT",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({fileName:name})
+        }
+    );
+
+    const data = await res.json();
+
+    if(data.success){
+
+        closeRenameModal();
+        loadMyFiles();
+
+    }
+    else{
+        alert(data.message);
+    }
+}
+
+async function toggleFavorite(id){
+
+    const res= await fetch( `/api/files/favorite/${id}`,
+        {
+            method:"PUT"
+        }
+    );
+
+    const data= await res.json();
+
+    if(data.success){
+
+        loadMyFiles();
+
+    } else{
+
+        alert(data.message);
+
+    }
+    closeAllMenus();
+
+}
+
+async function moveToTrash(id){
+
+    const confirmDelete= confirm(
+        "Move this file to trash?"
+    );
+
+    if(!confirmDelete) return;
+
+    const res= await fetch( `/api/files/trash/${id}`,
+        {
+            method:"PUT"
+        }
+    );
+
+    const data= await res.json();
+
+    if(data.success){
+
+        loadMyFiles();
+
+    } else{
+
+        alert(data.message);
+
+    }
+    closeAllMenus();
+}
+
 function getFileName(name){
 
     const i=name.lastIndexOf(".");
@@ -411,3 +645,8 @@ function formatDate(date){
     });
 
 }
+
+// Close all menus when clicking outside
+document.addEventListener("click", ()=>{ 
+    closeAllMenus(); 
+});

@@ -40,7 +40,17 @@ const fileSchema = new mongoose.Schema({
 
         default: null
 
-    }
+    },
+    
+    isFavorite:{
+        type:Boolean,
+        default:false
+    },
+
+    isTrash:{
+        type:Boolean,
+        default:false
+    },
 
 }, {
 

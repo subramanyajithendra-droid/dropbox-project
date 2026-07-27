@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Favorites</title>
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/sidebar.css">
+
+<link rel="stylesheet" href="/css/favorites.css">
+
+<link rel="stylesheet" href="/css/responsive.css">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            ☁️
+
+            <h2>Dropbox</h2>
+
+        </div>
+
+
+        <ul>
+
+            <li>
+                <a href="/">📊 Dashboard</a>
+            </li>
+
+            <li>
+                <a href="/my-files">📄 My Files</a>
+            </li>
+
+            <li>
+                <a href="/folders">📂 Folders</a>
+            </li>
+
+            <li class="active">
+                <a href="/favourites">⭐ Favorites</a>
+            </li>
+
+            <li>
+                <a href="/trash">🗑 Trash</a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <main class="main">
+
+
+        <div class="page-header">
+
+            <h1>
+
+                ⭐ Favorites
+
+            </h1>
+
+            <p>
+
+                Your important starred files
+
+            </p>
+        </div>
+
+        <div id="favoriteGrid" class="file-grid">
+
+        </div>
+
+        <div id="previewModal" class="modal">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h2 id="previewTitle">Preview</h2>
+
+                    <button id="closeModal">&times;</button>
+
+                </div>
+
+                <div id="previewBody" class="preview-body">
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button onclick="closePreview()">
+
+                        Close
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="/js/api.js"></script>
+
+<script src="/js/favourites.js"></script>
+
+</body>
+
+</html>

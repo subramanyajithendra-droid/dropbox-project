@@ -42,39 +42,23 @@
         <ul>
 
             <li>
-
                 <a href="/">📊 Dashboard</a>
-
             </li>
 
             <li class="active">
-
-                <a href="/my-files.html">📄 My Files</a>
-
+                <a href="/my-files">📄 My Files</a>
             </li>
 
             <li>
-
-                <a href="#">📂 Folders</a>
-
+                <a href="/folders">📂 Folders</a>
             </li>
 
             <li>
-
-                <a href="#">⭐ Favorites</a>
-
+                <a href="/favourites">⭐ Favorites</a>
             </li>
 
             <li>
-
-                <a href="#">🗑 Trash</a>
-
-            </li>
-
-            <li>
-
-                <a href="#">⚙ Settings</a>
-
+                <a href="/trash">🗑 Trash</a>
             </li>
 
         </ul>
@@ -213,10 +197,48 @@
 
 <!-- Preview Modal -->
 
-<div
-        id="previewModal"
-        class="modal"
->
+    <div id="previewModal" class="modal">
+
+    <div
+        id="renameModal"
+        class="rename-modal">
+
+        <div class="rename-box">
+
+            <h2>
+
+                Rename File
+
+            </h2>
+
+            <input
+                id="renameInput"
+                type="text"
+                placeholder="Enter file name">
+
+            <div class="rename-actions">
+
+                <button
+                    class="cancel-btn"
+                    onclick="closeRenameModal()">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    class="save-btn"
+                    onclick="renameFile()">
+
+                    Save
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
     <div class="modal-content">
 
@@ -236,10 +258,7 @@
 
         </div>
 
-        <div
-                id="previewBody"
-                class="preview-body"
-        >
+        <div id="previewBody" class="preview-body" >
 
         </div>
 

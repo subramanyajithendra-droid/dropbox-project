@@ -49,10 +49,10 @@ fastify.get("/folders", async (req, reply) => {
 
 });
 
-fastify.get("/favorites", async (req, reply) => {
+fastify.get("/favourites", async (req, reply) => {
 
     reply.type("text/html").send(
-        renderPage("favorites.html")
+        renderPage("favourites.html")
     );
 
 });

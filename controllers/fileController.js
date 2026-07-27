@@ -46,11 +46,12 @@ exports.getFiles=async(req,reply)=>{
 
     try{
 
-        const files=await File.find().sort({
-
-            createdAt:-1
-
-        });
+        const files = await File.find({
+            $or: [
+                { isTrash: false },
+                { isTrash: { $exists: false } }
+            ]
+        }).sort({ createdAt: -1 });
 
         reply.send({
 
@@ -76,33 +77,42 @@ exports.getFiles=async(req,reply)=>{
 
 }
 
-exports.deleteFile=async(req,reply)=>{
+exports.permanentDelete = async(req,reply)=>{
 
     try{
-        const file=await File.findById(req.params.id);
+
+        const file = await File.findById(req.params.id);
 
         if(!file){
+
             return reply.code(404).send({
-                success:false,  
+
+                success:false,
                 message:"File not found"
+
             });
         }
 
-        await s3Service.deleteFromS3(file.s3Key);       
+        await s3Service.deleteFromS3(file.s3Key);
 
-        await file.remove();
+        await File.findByIdAndDelete(req.params.id);
 
         reply.send({
+
             success:true,
-            message:"File deleted successfully"
-        }); 
+            message:"File permanently deleted"
+
+        });
 
     } catch(err){
 
         reply.code(500).send({
+
             success:false,
             message:err.message
+
         });
+
     }
 }
 
@@ -199,6 +209,189 @@ exports.downloadFile = async (req, reply) => {
         reply.code(500).send({
             success: false,
             message: err.message
+        });
+
+    }
+
+};
+
+exports.toggleFavorite = async(req,reply)=>{
+
+    try{
+
+        const file = await File.findById(req.params.id);
+
+        if(!file){
+
+            return reply.code(404).send({
+
+                success:false,
+                message:"File not found"
+
+            });
+
+        }
+
+        if(file.isTrash){
+
+            return reply.send({
+
+                success:false,
+                message:"Cannot favorite trashed file"
+
+            });
+
+        }
+
+        file.isFavorite =!file.isFavorite;
+
+        await file.save();
+
+        reply.send({
+
+            success:true,
+
+            favorite:file.isFavorite
+
+        });
+
+    } catch(err){
+
+        reply.code(500).send({
+
+            success:false,
+            message:err.message
+
+        });
+    }
+}
+
+exports.moveToTrash = async(req,reply)=>{
+
+    try{
+
+        const file = await File.findById(req.params.id);
+
+        if(!file){
+
+            return reply.code(404).send({
+
+                success:false,
+                message:"File not found"
+
+            });
+        }
+
+        file.isTrash=true;
+
+        await file.save();
+
+        reply.send({
+
+            success:true,
+            message:"Moved to trash"
+
+        });
+
+    } catch(err){
+
+        reply.code(500).send({
+
+            success:false,
+            message:err.message
+
+        });
+    }
+}
+
+exports.getFavorites=async(req,reply)=>{
+
+    try{
+
+        const files = await File.find({
+
+            isFavorite:true,
+            isTrash:{
+                $ne:true
+            }
+        }).sort({
+            createdAt:-1
+        });
+
+        reply.send({
+
+            success:true,
+            files
+
+        });
+    } catch(err){
+
+        reply.code(500).send({
+
+            success:false,
+            message:err.message
+
+        });
+    }
+}
+
+
+exports.getTrash=async(req,reply)=>{
+
+    try{
+        const files= await File.find({isTrash:true}).sort({createdAt:-1});
+
+        reply.send({
+            
+            success:true,
+            files
+
+        });
+    }
+    catch(err){
+
+        reply.code(500).send({
+
+            success:false,
+            message:err.message
+
+        });
+    }
+}
+
+exports.restoreFile = async (req, reply) => {
+
+    try {
+
+        const file = await File.findById(req.params.id);
+
+        if (!file) {
+
+            return reply.code(404).send({
+                success:false,
+                message:"File not found"
+            });
+
+        }
+
+        file.isTrash = false;
+
+        await file.save();
+
+        reply.send({
+
+            success:true,
+            message:"File Restored"
+
+        });
+
+    } catch(err){
+
+        reply.code(500).send({
+
+            success:false,
+            message:err.message
+
         });
 
     }

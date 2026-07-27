@@ -243,27 +243,6 @@
     background:#f4f7fb;
 
     border-radius:16px;
-
-}
-
-.menu-btn{
-
-    border:none;
-
-    background:none;
-
-    font-size:24px;
-
-    cursor:pointer;
-
-    color:#6b7280;
-
-}
-
-.menu-btn:hover{
-
-    color:#2563eb;
-
 }
 
 .file-card h3{
@@ -416,9 +395,6 @@
 
 /* ===========================
    MODAL
-=========================== */
-/* ===========================
-   PROFESSIONAL PREVIEW MODAL
 =========================== */
 
 .modal{
@@ -770,5 +746,474 @@
     font-family:Consolas, monospace;
 
     line-height:1.7;
+
+}
+
+/* ==================================================
+   FAVORITE STAR BADGE
+================================================== */
+
+.file-card{
+
+    position:relative;
+
+}
+
+
+.favorite-badge{
+
+    position:absolute;
+
+    top:12px;
+
+    left:12px;
+
+    width:35px;
+
+    height:35px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#fff7ed;
+
+    font-size:20px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+
+    z-index:5;
+
+    animation:starPop .3s ease;
+
+}
+
+
+@keyframes starPop{
+
+
+    from{
+
+        transform:scale(0);
+
+    }
+
+
+    to{
+
+        transform:scale(1);
+
+    }
+
+
+}
+
+
+/* ==================================================
+   THREE DOT MENU
+================================================== */
+
+
+.menu-container{
+
+    position:relative;
+
+}
+
+
+.menu-btn{
+
+    width:35px;
+
+    height:35px;
+
+    border-radius:50%;
+
+    border:none;
+
+    background:#f3f4f6;
+
+    color:#374151;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:.3s;
+
+}
+
+
+.menu-btn:hover{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+
+/* ==================================================
+   DROPDOWN MENU
+================================================== */
+
+
+.dropdown-menu{
+
+
+    position:absolute;
+
+    top:45px;
+
+    right:0;
+
+
+    width:190px;
+
+
+    background:white;
+
+
+    border-radius:14px;
+
+
+    padding:8px;
+
+
+    box-shadow:
+
+    0 15px 35px rgba(0,0,0,.18);
+
+
+    display:none;
+
+
+    z-index:100;
+
+
+    animation:dropdown .2s ease;
+
+
+}
+
+
+
+.dropdown-menu.show{
+
+    display:block;
+
+}
+
+@keyframes dropdown{
+
+    from{
+
+        opacity:0;
+
+        transform:
+
+        translateY(-10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+
+        translateY(0);
+
+    }
+}
+
+.dropdown-menu button{
+
+    width:100%;
+
+    border:none;
+
+    background:none;
+
+    padding:12px 15px;
+
+    border-radius:10px;
+
+    text-align:left;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    color:#374151;
+
+    transition:.25s;
+
+}
+
+.dropdown-menu button:hover{
+
+    background:#f3f4f6;
+
+}
+
+.dropdown-menu .danger{
+
+    color:#dc2626;
+
+}
+
+.dropdown-menu .danger:hover{
+
+    background:#fee2e2;
+
+}
+
+/* ==================================================
+   RENAME MODAL
+================================================== */
+
+.rename-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    rgba(15,23,42,.55);
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:10000;
+
+    backdrop-filter:blur(5px);
+
+}
+
+.rename-modal.active{
+
+    display:flex;
+
+}
+
+.rename-box{
+
+    width:420px;
+
+    max-width:90%;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:
+
+    0 25px 60px rgba(0,0,0,.25);
+
+    animation:renamePopup .3s ease;
+
+}
+
+@keyframes renamePopup{
+
+    from{
+
+        opacity:0;
+        transform:scale(.8);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:scale(1);
+
+    }
+
+}
+
+.rename-box h2{
+
+    margin-bottom:20px;
+
+    color:#1f2937;
+
+    font-size:24px;
+
+}
+
+.rename-box input{
+
+    width:100%;
+
+    padding:14px 16px;
+
+    border:1px solid #ddd;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:15px;
+}
+
+.rename-box input:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:
+
+    0 0 0 3px rgba(37,99,235,.15);
+
+}
+
+/* ==================================================
+   RENAME BUTTONS
+================================================== */
+
+.rename-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+.rename-actions button{
+
+    padding:12px 25px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:500;
+
+}
+
+.cancel-btn{
+
+    background:#e5e7eb;
+
+    color:#374151;
+
+}
+
+.cancel-btn:hover{
+
+    background:#d1d5db;
+
+}
+
+.save-btn{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.save-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+/* ==================================================
+   MENU OVERLAY
+================================================== */
+
+#menuOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    z-index:90;
+
+}
+
+#menuOverlay.active{
+
+    display:block;
+
+}
+
+/* ==================================================
+   FILE CARD FAVORITE HIGHLIGHT
+================================================== */
+
+.file-card.favorite{
+
+    border:
+
+    2px solid #fbbf24;
+
+}
+
+/* ==================================================
+   BETTER FILE TOP
+================================================== */
+
+.file-top{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media(max-width:600px){
+
+    .dropdown-menu{
+
+        right:-20px;
+
+        width:170px;
+
+    }
+
+
+    .rename-box{
+
+        padding:22px;
+
+    }
+
+
+    .rename-box h2{
+
+        font-size:20px;
+    }
 
 }
