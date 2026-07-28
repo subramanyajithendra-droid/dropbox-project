@@ -85,47 +85,6 @@ transform:translateY(-8px);
 }
 
 
-
-.favorite-star{
-
-
-position:absolute;
-
-
-top:15px;
-
-
-right:15px;
-
-
-font-size:22px;
-
-
-background:#fff7ed;
-
-
-width:38px;
-
-
-height:38px;
-
-
-border-radius:50%;
-
-
-display:flex;
-
-
-align-items:center;
-
-
-justify-content:center;
-
-
-}
-
-
-
 .icon{
 
 
@@ -565,5 +524,45 @@ background:#1d4ed8;
     font-family:Consolas, monospace;
 
     line-height:1.7;
+
+}
+
+.file-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+}
+
+.empty{
+
+    grid-column:1/-1;
+
+    background:#fff;
+
+    padding:70px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.empty h2{
+
+    color:#1f2937;
+
+}
+
+.empty p{
+
+    color:#6b7280;
+
+    margin-top:10px;
 
 }

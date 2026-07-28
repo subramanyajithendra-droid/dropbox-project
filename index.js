@@ -83,6 +83,12 @@ fastify.register(require("./routes/fileRoutes"), {
     prefix: "/api/files"
 });
 
+fastify.register(require("./routes/folderRoutes"),{
+
+    prefix:"/api/folders"
+
+});
+
 fastify.register(require("./routes/testRoutes"), {
     prefix: "/api/test"
 });

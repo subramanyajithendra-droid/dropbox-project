@@ -14,7 +14,7 @@ async function routes(fastify){
 
     fastify.put("/restore/:id", controller.restoreFile);
 
-    fastify.put("/:id",controller.renameFile);
+    fastify.put("/rename/:id",controller.renameFile);
 
     fastify.get("/preview/:id",controller.previewFile);
 

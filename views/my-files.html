@@ -197,48 +197,47 @@
 
 <!-- Preview Modal -->
 
-    <div id="previewModal" class="modal">
+    <!-- Rename Modal -->
 
-    <div
-        id="renameModal"
-        class="rename-modal">
+<div id="renameModal" class="rename-modal">
 
-        <div class="rename-box">
+    <div class="rename-box">
 
-            <h2>
+        <h2>Rename File</h2>
 
-                Rename File
+        <input
+            id="renameInput"
+            type="text"
+            placeholder="Enter file name">
 
-            </h2>
+        <div class="rename-actions">
 
-            <input
-                id="renameInput"
-                type="text"
-                placeholder="Enter file name">
+            <button
+                class="cancel-btn"
+                onclick="closeRenameModal()">
 
-            <div class="rename-actions">
+                Cancel
 
-                <button
-                    class="cancel-btn"
-                    onclick="closeRenameModal()">
+            </button>
 
-                    Cancel
+            <button
+                class="save-btn"
+                onclick="renameFile()">
 
-                </button>
+                Save
 
-                <button
-                    class="save-btn"
-                    onclick="renameFile()">
-
-                    Save
-
-                </button>
-
-            </div>
+            </button>
 
         </div>
 
     </div>
+
+</div>
+
+
+<!-- Preview Modal -->
+
+<div id="previewModal" class="modal">
 
     <div class="modal-content">
 
@@ -258,7 +257,9 @@
 
         </div>
 
-        <div id="previewBody" class="preview-body" >
+        <div
+            id="previewBody"
+            class="preview-body">
 
         </div>
 

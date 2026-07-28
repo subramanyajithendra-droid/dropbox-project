@@ -450,15 +450,30 @@ function closeAllMenus(){
 
 function renamePrompt(id){
 
-    selectedFileId=id;
+    selectedFileId = id;
 
-    const file=allFiles.find(
-        f=>f._id===id
+    const file = allFiles.find(f => f._id === id);
+
+    if(!file) return;
+
+    const ext = file.originalName.substring(
+        file.originalName.lastIndexOf(".")
     );
 
-    document.getElementById("renameInput").value=file.originalName;
+    const name = file.originalName.substring(
+        0,
+        file.originalName.lastIndexOf(".")
+    );
 
-    document.getElementById("renameModal").classList.add("active");
+    document.getElementById("renameInput").value = name;
+
+    document
+        .getElementById("renameModal")
+        .classList.add("active");
+
+    document
+        .getElementById("renameInput")
+        .focus();
 
     closeAllMenus();
 
@@ -474,34 +489,49 @@ function closeRenameModal(){
 
 async function renameFile(){
 
-    const name= document.getElementById("renameInput").value.trim();
+    const file = allFiles.find(f => f._id === selectedFileId);
+
+    const ext = file.originalName.includes(".")
+        ? file.originalName.substring(file.originalName.lastIndexOf("."))
+        : "";
+
+    const name = document
+        .getElementById("renameInput")
+        .value
+        .trim();
 
     if(!name){
+
         alert("Enter file name");
         return;
+
     }
 
-    const res=await fetch(`/api/files/${selectedFileId}`,
-        {
-            method:"PUT",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({fileName:name})
-        }
-    );
+    const res = await fetch(`/api/files/rename/${selectedFileId}`,{
+
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            fileName: name + ext
+
+        })
+
+    });
 
     const data = await res.json();
 
     if(data.success){
 
         closeRenameModal();
+
         loadMyFiles();
 
     }
-    else{
-        alert(data.message);
-    }
+
 }
 
 async function toggleFavorite(id){

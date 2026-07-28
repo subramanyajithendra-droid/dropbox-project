@@ -66,12 +66,6 @@ async function loadFiles(){
 
                 </div>
 
-                <button class="menu-btn">
-
-                    ⋮
-
-                </button>
-
             </div>
 
             <h3>${getFileName(file.originalName)}</h3>
