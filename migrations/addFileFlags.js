@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const File = require("../Models/File");
+const File = require("../models/file");
 
 // Replace with your MongoDB connection string
 const MONGO_URI = "mongodb://127.0.0.1:27017/dropbox";

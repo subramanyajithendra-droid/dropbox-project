@@ -1,4 +1,4 @@
-const Folder=require("../models/Folder");
+const Folder=require("../models/folder");
 
 exports.createFolder=async(req,res)=>{
 
