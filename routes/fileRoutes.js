@@ -1,4 +1,4 @@
-const controller = require("../Controllers/fileController");
+const controller = require("../controllers/fileController");
 
 async function routes(fastify){
 

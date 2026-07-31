@@ -4,6 +4,9 @@ window.onload = () => {
 
     loadFiles();
 
+    loadFolders();
+
+    initializeFolder();
 }
 
 async function loadFiles(){
@@ -92,6 +95,7 @@ async function loadFiles(){
 
 }
 
+
 async function uploadSelectedFile(file){
 
     try{
@@ -112,6 +116,107 @@ async function uploadSelectedFile(file){
     }
 
 }
+
+function initializeFolder(){
+
+
+    const btn=document.getElementById("createFolderBtn");
+
+    btn.onclick=()=>{
+
+        document.getElementById("folderModal").style.display="flex";
+
+    };
+
+}
+
+function closeFolderModal(){
+
+    document.getElementById("folderModal").style.display="none";
+
+}
+
+async function loadFolders(){
+
+    const res=await fetch("/api/folders");
+
+    const data=await res.json();
+
+    const grid=document.getElementById("folderGrid");
+
+    grid.innerHTML="";
+
+    if(data.folders.length===0){
+
+        grid.innerHTML=`
+
+        <div class="empty">
+
+        <h3>No folders</h3>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+    data.folders.forEach(folder=>{
+
+
+        grid.innerHTML+=`
+
+        <div class="folder-card" onclick="openFolder('${folder._id}')">
+
+            <div class="folder-icon">
+            📁
+            </div>
+
+
+            <h3>
+            ${folder.name}
+            </h3>
+
+        </div>
+
+        `;
+
+    });
+
+
+}
+
+async function createFolder(){
+
+    const name=document.getElementById("folderName").value;
+
+    const res=await fetch("/api/folders/create",{
+
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({name})
+
+    });
+
+    const data=await res.json();
+
+    if(data.success){
+
+        alert("Folder Created");
+        loadFolders();
+
+    } else{
+
+        alert(data.message);
+
+    }
+
+}
+
+
 
 function formatStorage(bytes){
 

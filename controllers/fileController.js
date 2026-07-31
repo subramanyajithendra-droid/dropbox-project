@@ -1,4 +1,4 @@
-const File = require("../Models/File");
+const File = require("../models/File");
 
 const s3Service = require("../utils/s3Service");
 
